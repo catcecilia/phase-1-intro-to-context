@@ -11,12 +11,9 @@ function createEmployeeRecord(array){
 }
 
 function createEmployeeRecords(arrayOfArrays){
-    const arrayOfObjects=[];
-    arrayOfArrays.forEach(array =>{
-        arrayOfObjects.push(createEmployeeRecord(array));
-    });
-    return arrayOfObjects;
+    return arrayOfArrays.map(array => createEmployeeRecord(array));
 }
+
 function createTimeInEvent(employeeRecord, dateStamp){
     let dateStampString = dateStamp.toString();
     employeeRecord.timeInEvents.push({
@@ -70,9 +67,5 @@ function allWagesFor(employeeRecord){
 }
 
 function calculatePayroll(arrayofEmployeeRecords){
-    let accumulator = 0;
-    for (let i = 0; i < arrayofEmployeeRecords.length; i++){
-        accumulator += allWagesFor(arrayofEmployeeRecords[i]);
-    }
-    return accumulator;
+    return arrayofEmployeeRecords.reduce((accumulator, employeeRecord) => accumulator + allWagesFor(employeeRecord), 0);
 }
